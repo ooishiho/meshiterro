@@ -1,6 +1,6 @@
-class PostlmagesController < ApplicationController
+class PostImagesController < ApplicationController
   def new
-    @post_image= Post_image.new
+    @post_image= PostImage.new
   end
 
   def create
@@ -11,16 +11,25 @@ class PostlmagesController < ApplicationController
   end
 
   def index
+    @post_images = PostImage.all
   end
 
   def show
+    @post_images = PostImage.find(params[:id])
   end
+
+  def destroy
+    post_image = Post_image.find(params[:id])
+    post_image.destroy
+    redirect_to '/Post_image'
+  end
+
   # ストロングパラメータ
   private
 
   def post_image_params
     params.require(:post_image).permit(:shop_name, :image, :caption)
   end
-  
+
 end
 
