@@ -1,9 +1,12 @@
 Rails.application.routes.draw do
-  devise_for :users
+  # devise_for :users
+
  root to: 'homes#top'
-  
+
   resources :post_images, only: [:new, :create, :index, :show, :destroy]do
-      resources :post_comments, only: [:create]
+    # いいね機能のルーティングの設定、sがつかない点に注意
+    resource :favorites, only: [:create, :destroy]
+    resources :post_comments, only: [:create, :destroy]
   end
   resources :users, only: [:show, :edit, :update]
   get '/homes/about' => 'homes#about', as: 'about'
